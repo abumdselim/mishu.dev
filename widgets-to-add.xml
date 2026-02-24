@@ -1,0 +1,1008 @@
+<!-- ============================================= -->
+<!-- PROFESSIONAL TECH-FOCUSED BLOGGER WIDGETS -->
+<!-- All widgets have locked='false' for Layout tab management -->
+<!-- ============================================= -->
+
+<!-- ============================================= -->
+<!-- 1. LIVE STATUS BADGE WIDGET -->
+<!-- Add this to the Header or Hero section -->
+<!-- ============================================= -->
+
+<b:widget id='HTML4' locked='false' title='Live Status Badge' type='HTML' version='2' visible='true'>
+  <b:widget-settings>
+    <b:widget-setting name='content'><![CDATA[
+<div class="status-badge-widget">
+  <div class="status-badge-content">
+    <svg class="status-pulse-dot" width="12" height="12" viewBox="0 0 12 12">
+      <circle cx="6" cy="6" r="5" fill="#10b981"/>
+      <circle cx="6" cy="6" r="5" fill="#10b981" opacity="0.5">
+        <animate attributeName="r" from="5" to="8" dur="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+    <span class="status-badge-text">Available for Freelance Work</span>
+  </div>
+  
+  <!-- EDITING INSTRUCTIONS:
+  To change the status text:
+  1. Go to Layout → Edit this widget
+  2. Change the text inside <span class="status-badge-text">
+  3. To change color, replace #10b981 with your hex color
+  4. Red (#ef4444) for Unavailable, Yellow (#f59e0b) for Busy
+  -->
+</div>
+
+<style>
+.status-badge-widget {
+  display: inline-flex;
+  justify-content: center;
+  margin: var(--spacing-md) 0;
+}
+
+.status-badge-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-lg);
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: status-fade-in 0.5s ease-out;
+}
+
+.status-pulse-dot {
+  flex-shrink: 0;
+}
+
+.status-badge-text {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #10b981;
+  white-space: nowrap;
+}
+
+@keyframes status-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .status-badge-text {
+    font-size: var(--text-xs);
+  }
+}
+</style>
+]]></b:widget-setting>
+  </b:widget-settings>
+  <b:includable id='main'>
+    <data:content/>
+  </b:includable>
+</b:widget>
+
+
+<!-- ============================================= -->
+<!-- 2. API-BASED CONTACT FORM WIDGET -->
+<!-- Add this to a Contact section or Footer -->
+<!-- ============================================= -->
+
+<b:widget id='HTML5' locked='false' title='Contact Form' type='HTML' version='2' visible='true'>
+  <b:widget-settings>
+    <b:widget-setting name='content'><![CDATA[
+<div class="contact-form-container">
+  <div class="contact-form-wrapper">
+    <div class="contact-form-header">
+      <h3 class="contact-form-title">Let's Work Together</h3>
+      <p class="contact-form-subtitle">Have a project in mind? Drop me a message!</p>
+    </div>
+    
+    <!-- 
+    ⚠️ IMPORTANT: EDIT YOUR FORM ACTION URL BELOW
+    Replace 'YOUR_FORMSPREE_ENDPOINT' with your actual endpoint
+    Examples:
+    - Formspree: https://formspree.io/f/YOUR_FORM_ID
+    - Web3Forms: https://api.web3forms.com/submit
+    - Getform: https://getform.io/f/YOUR_FORM_ID
+    -->
+    
+    <form class="contact-form glass-card" action="YOUR_FORMSPREE_ENDPOINT" method="POST" id="contactForm">
+      
+      <div class="form-group">
+        <label for="name" class="form-label">Your Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-input" 
+          placeholder="John Doe" 
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-input" 
+          placeholder="john@example.com" 
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="subject" class="form-label">Subject</label>
+        <input 
+          type="text" 
+          id="subject" 
+          name="subject" 
+          class="form-input" 
+          placeholder="Project Inquiry" 
+          required
+        />
+      </div>
+      
+      <div class="form-group">
+        <label for="message" class="form-label">Message</label>
+        <textarea 
+          id="message" 
+          name="message" 
+          class="form-textarea" 
+          rows="5" 
+          placeholder="Tell me about your project..." 
+          required
+        ></textarea>
+      </div>
+      
+      <button type="submit" class="form-submit-btn">
+        <span class="btn-text">Send Message</span>
+        <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M2 10L18 2L10 18L8 11L2 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <div class="form-status" id="formStatus"></div>
+    </form>
+  </div>
+</div>
+
+<style>
+.contact-form-container {
+  padding: var(--spacing-xl) 0;
+}
+
+.contact-form-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-form-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.contact-form-title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.contact-form-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+}
+
+.contact-form {
+  padding: var(--spacing-2xl);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-family: var(--font-mono);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: var(--spacing-md);
+  background: rgba(26, 26, 36, 0.6);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  transition: var(--transition);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  font-size: var(--text-base);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.form-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px var(--primary-glow);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.form-submit-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+.form-status {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  font-size: var(--text-sm);
+  text-align: center;
+  display: none;
+}
+
+.form-status.success {
+  display: block;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.form-status.error {
+  display: block;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+}
+
+@media (max-width: 768px) {
+  .contact-form {
+    padding: var(--spacing-lg);
+  }
+  
+  .contact-form-title {
+    font-size: var(--text-2xl);
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = form.querySelector('.form-submit-btn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const originalText = btnText.textContent;
+      
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending...';
+      formStatus.style.display = 'none';
+      
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          formStatus.className = 'form-status success';
+          formStatus.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+          form.reset();
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = '✗ Something went wrong. Please try again or email me directly.';
+      } finally {
+        submitBtn.disabled = false;
+        btnText.textContent = originalText;
+      }
+    });
+  }
+});
+</script>
+]]></b:widget-setting>
+  </b:widget-settings>
+  <b:includable id='main'>
+    <data:content/>
+  </b:includable>
+</b:widget>
+
+
+<!-- ============================================= -->
+<!-- 3. TECH-STACK MARQUEE WIDGET -->
+<!-- Add this to About or Skills section -->
+<!-- ============================================= -->
+
+<b:widget id='HTML6' locked='false' title='Tech Stack Marquee' type='HTML' version='2' visible='true'>
+  <b:widget-settings>
+    <b:widget-setting name='content'><![CDATA[
+<div class="tech-marquee-container">
+  <div class="tech-marquee-label">Technologies I Use:</div>
+  
+  <!-- 
+  EDITING INSTRUCTIONS:
+  Edit the list below. Simply add or remove items separated by commas.
+  The JavaScript will automatically create the scrolling animation.
+  Keep it simple: TechName, TechName, TechName
+  -->
+  
+  <div class="tech-marquee-wrapper">
+    <div class="tech-marquee-content" id="techMarqueeContent">
+      Next.js, React, TypeScript, Tailwind CSS, Prisma, Supabase, PostgreSQL, Node.js, Express, MongoDB, Redis, Docker, AWS, Vercel, Git, GitHub Actions, REST APIs, GraphQL, Jest, Cypress, Figma, VS Code
+    </div>
+  </div>
+</div>
+
+<style>
+.tech-marquee-container {
+  padding: var(--spacing-xl) 0;
+  overflow: hidden;
+}
+
+.tech-marquee-label {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-lg);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.tech-marquee-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: rgba(26, 26, 36, 0.4);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--spacing-lg) 0;
+}
+
+.tech-marquee-wrapper::before,
+.tech-marquee-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-marquee-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-primary), transparent);
+}
+
+.tech-marquee-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-primary), transparent);
+}
+
+.tech-marquee-track {
+  display: flex;
+  gap: var(--spacing-xl);
+  animation: marquee-scroll 30s linear infinite;
+  will-change: transform;
+}
+
+.tech-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.tech-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.tech-item:hover {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .tech-marquee-wrapper::before,
+  .tech-marquee-wrapper::after {
+    width: 50px;
+  }
+  
+  .tech-item {
+    font-size: var(--text-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const contentElement = document.getElementById('techMarqueeContent');
+  
+  if (contentElement) {
+    const content = contentElement.textContent.trim();
+    const techs = content.split(',').map(tech => tech.trim()).filter(tech => tech);
+    
+    // Create marquee track
+    const track = document.createElement('div');
+    track.className = 'tech-marquee-track';
+    
+    // Duplicate items for seamless loop
+    const allTechs = [...techs, ...techs];
+    
+    allTechs.forEach(tech => {
+      const item = document.createElement('span');
+      item.className = 'tech-item';
+      item.textContent = tech;
+      track.appendChild(item);
+    });
+    
+    // Replace content with animated track
+    contentElement.innerHTML = '';
+    contentElement.appendChild(track);
+  }
+});
+</script>
+]]></b:widget-setting>
+  </b:widget-settings>
+  <b:includable id='main'>
+    <data:content/>
+  </b:includable>
+</b:widget>
+
+
+<!-- ============================================= -->
+<!-- 4. DARK/LIGHT MODE TOGGLE WIDGET -->
+<!-- Add this to the Header section -->
+<!-- ============================================= -->
+
+<b:widget id='HTML7' locked='false' title='Theme Toggle' type='HTML' version='2' visible='true'>
+  <b:widget-settings>
+    <b:widget-setting name='content'><![CDATA[
+<div class="theme-toggle-widget">
+  <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+    <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <circle cx="10" cy="10" r="4" stroke="currentColor" stroke-width="2"/>
+      <path d="M10 2V4M10 16V18M18 10H16M4 10H2M15.5 4.5L14 6M6 14L4.5 15.5M15.5 15.5L14 14M6 6L4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C10.395 3 10.781 3.034 11.157 3.099C9.84901 4.308 9 6.065 9 8C9 11.314 11.686 14 15 14C15.935 14 16.831 13.781 17.639 13.395C17.543 13.923 17.396 14.435 17.202 14.926" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+</div>
+
+<style>
+.theme-toggle-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 36, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 20px var(--primary-glow);
+  transform: scale(1.05);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.theme-icon {
+  position: absolute;
+  color: var(--text-primary);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.sun-icon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+.moon-icon {
+  transform: rotate(180deg) scale(0);
+  opacity: 0;
+}
+
+/* Light mode styles (when body has .light class) */
+body.light .sun-icon {
+  transform: rotate(180deg) scale(0);
+  opacity: 0;
+}
+
+body.light .moon-icon {
+  transform: rotate(0deg) scale(1);
+  opacity: 1;
+}
+
+body.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --bg-elevated: #e5e7eb;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .theme-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+</style>
+
+<script>
+(function() {
+  'use strict';
+  
+  const STORAGE_KEY = 'theme-preference';
+  const THEME_TOGGLE_ID = 'themeToggle';
+  
+  // Get stored theme or default to dark
+  function getStoredTheme() {
+    try {
+      return localStorage.getItem(STORAGE_KEY) || 'dark';
+    } catch (e) {
+      return 'dark';
+    }
+  }
+  
+  // Store theme preference
+  function storeTheme(theme) {
+    try {
+      localStorage.setItem(STORAGE_KEY, theme);
+    } catch (e) {
+      console.warn('Could not save theme preference');
+    }
+  }
+  
+  // Apply theme to document
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+  }
+  
+  // Initialize theme on page load
+  function initTheme() {
+    const theme = getStoredTheme();
+    applyTheme(theme);
+  }
+  
+  // Toggle theme
+  function toggleTheme() {
+    const isLight = document.body.classList.contains('light');
+    const newTheme = isLight ? 'dark' : 'light';
+    applyTheme(newTheme);
+    storeTheme(newTheme);
+  }
+  
+  // Initialize immediately
+  initTheme();
+  
+  // Wait for DOM to be ready for button click handler
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachToggleHandler);
+  } else {
+    attachToggleHandler();
+  }
+  
+  function attachToggleHandler() {
+    const toggleBtn = document.getElementById(THEME_TOGGLE_ID);
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', toggleTheme);
+    }
+  }
+})();
+</script>
+]]></b:widget-setting>
+  </b:widget-settings>
+  <b:includable id='main'>
+    <data:content/>
+  </b:includable>
+</b:widget>
+
+
+<!-- ============================================= -->
+<!-- 5. DEVELOPER ACTIVITY FEED WIDGET -->
+<!-- Add this to About or a dedicated Updates section -->
+<!-- ============================================= -->
+
+<b:widget id='HTML8' locked='false' title='Recent Activity' type='HTML' version='2' visible='true'>
+  <b:widget-settings>
+    <b:widget-setting name='content'><![CDATA[
+<div class="activity-feed-container">
+  <div class="activity-feed-header">
+    <div class="terminal-window-controls">
+      <span class="terminal-control red"></span>
+      <span class="terminal-control yellow"></span>
+      <span class="terminal-control green"></span>
+    </div>
+    <div class="terminal-title">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M2 4L6 8L2 12M8 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>development_activity.log</span>
+    </div>
+  </div>
+  
+  <div class="activity-feed-content">
+    <!-- 
+    EDITING INSTRUCTIONS:
+    To update activities, simply edit the HTML below:
+    1. Change the date in <span class="activity-date">
+    2. Change the project in <span class="activity-project">
+    3. Change the message in <span class="activity-message">
+    4. Copy/paste entire activity-item divs to add more entries
+    -->
+    
+    <div class="activity-item">
+      <span class="activity-prompt">$</span>
+      <span class="activity-date">2026-02-20</span>
+      <span class="activity-separator">•</span>
+      <span class="activity-project">[The Chattala]</span>
+      <span class="activity-message">Implemented real-time chat with WebSocket support</span>
+    </div>
+    
+    <div class="activity-item">
+      <span class="activity-prompt">$</span>
+      <span class="activity-date">2026-02-18</span>
+      <span class="activity-separator">•</span>
+      <span class="activity-project">[Intactic Systems]</span>
+      <span class="activity-message">Deployed new microservices architecture to AWS ECS</span>
+    </div>
+    
+    <div class="activity-item">
+      <span class="activity-prompt">$</span>
+      <span class="activity-date">2026-02-15</span>
+      <span class="activity-separator">•</span>
+      <span class="activity-project">[Portfolio]</span>
+      <span class="activity-message">Refactored theme with glassmorphism and dark mode</span>
+    </div>
+    
+    <div class="activity-cursor">
+      <span class="cursor-blink">_</span>
+    </div>
+  </div>
+</div>
+
+<style>
+.activity-feed-container {
+  margin: var(--spacing-xl) 0;
+  background: #0d1117;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.activity-feed-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: #161b22;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-window-controls {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.terminal-control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.terminal-control.red {
+  background: #ff5f56;
+}
+
+.terminal-control.yellow {
+  background: #ffbd2e;
+}
+
+.terminal-control.green {
+  background: #27c93f;
+}
+
+.terminal-title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: var(--text-xs);
+  color: #8b949e;
+}
+
+.terminal-title svg {
+  color: #58a6ff;
+}
+
+.activity-feed-content {
+  padding: var(--spacing-lg);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: var(--text-sm);
+  line-height: 1.8;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.activity-feed-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.activity-feed-content::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.activity-feed-content::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.activity-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
+  animation: activity-slide-in 0.5s ease-out backwards;
+}
+
+.activity-item:nth-child(1) { animation-delay: 0.1s; }
+.activity-item:nth-child(2) { animation-delay: 0.2s; }
+.activity-item:nth-child(3) { animation-delay: 0.3s; }
+
+.activity-prompt {
+  color: #58a6ff;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.activity-date {
+  color: #8b949e;
+  flex-shrink: 0;
+}
+
+.activity-separator {
+  color: #484f58;
+}
+
+.activity-project {
+  color: #7ee787;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.activity-message {
+  color: #c9d1d9;
+  flex: 1;
+  min-width: 200px;
+}
+
+.activity-cursor {
+  margin-top: var(--spacing-sm);
+}
+
+.cursor-blink {
+  color: #58a6ff;
+  font-weight: 700;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes activity-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-feed-content {
+    font-size: var(--text-xs);
+    padding: var(--spacing-md);
+  }
+  
+  .activity-item {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .activity-message {
+    margin-left: var(--spacing-lg);
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const activityItems = document.querySelectorAll('.activity-item');
+  
+  // Optional: Add click to copy functionality
+  activityItems.forEach(item => {
+    item.style.cursor = 'pointer';
+    item.title = 'Click to copy';
+    
+    item.addEventListener('click', function() {
+      const text = this.textContent.trim();
+      
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          // Visual feedback
+          const originalBg = this.style.background;
+          this.style.background = 'rgba(88, 166, 255, 0.1)';
+          setTimeout(() => {
+            this.style.background = originalBg;
+          }, 200);
+        }).catch(err => {
+          console.log('Copy failed:', err);
+        });
+      }
+    });
+  });
+});
+</script>
+]]></b:widget-setting>
+  </b:widget-settings>
+  <b:includable id='main'>
+    <data:content/>
+  </b:includable>
+</b:widget>
+
+
+<!-- ============================================= -->
+<!-- INTEGRATION GUIDE -->
+<!-- ============================================= -->
+<!--
+HOW TO ADD THESE WIDGETS TO YOUR THEME:
+
+1. Open your theme.xml file
+2. Find the appropriate <b:section> where you want to add each widget
+3. Paste the widget code inside the section, before the closing </b:section> tag
+
+SUGGESTED PLACEMENT:
+- Live Status Badge: Inside <b:section id='header'> or <b:section id='hero'>
+- Contact Form: Create new section or add to <b:section id='footer'>
+- Tech-Stack Marquee: Inside <b:section id='about'> or <b:section id='skills'>
+- Theme Toggle: Inside <b:section id='header'>
+- Activity Feed: Inside <b:section id='about'> or create new section
+
+EXAMPLE:
+<b:section class='header-section' id='header' maxwidgets='5' name='Header' showaddelement='yes'>
+  <!-- Paste Widget Code Here -->
+  <b:widget id='HTML7' locked='false' title='Theme Toggle' type='HTML' version='2' visible='true'>
+    ...
+  </b:widget>
+</b:section>
+
+Remember:
+- All widgets have locked='false' for easy Layout management
+- Edit content directly from Blogger Dashboard → Layout → Edit Widget
+- No HTML knowledge required for basic edits
+-->

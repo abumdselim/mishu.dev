@@ -1,0 +1,247 @@
+<!-- ============================================= -->
+<!-- PRISM.JS SYNTAX HIGHLIGHTING INTEGRATION -->
+<!-- Add these lines to your theme.xml <head> section -->
+<!-- ============================================= -->
+
+<!-- STEP 1: Add these CDN links in the <head> section, before </head> -->
+
+<!-- Prism.js CSS - Tomorrow Night Theme (Dark) -->
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css' rel='stylesheet'/>
+
+<!-- Alternative Dark Themes (uncomment to use instead):
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css' rel='stylesheet'/>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css' rel='stylesheet'/>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-twilight.min.css' rel='stylesheet'/>
+-->
+
+<!-- Prism.js Core Library -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js'></script>
+
+<!-- Prism.js Language Support (Add languages you use) -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js'></script>
+
+<!-- Optional Prism.js Plugins for Enhanced Features -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js'></script>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css' rel='stylesheet'/>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.js'></script>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css' rel='stylesheet'/>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js'></script>
+
+
+<!-- STEP 2: Add this initialization script before </head> -->
+
+<script>
+//<![CDATA[
+// Prism.js Auto-Initialization for Blogger
+(function() {
+  'use strict';
+  
+  // Configure Prism
+  window.Prism = window.Prism || {};
+  Prism.manual = false; // Auto-highlight on page load
+  
+  // Function to highlight code blocks
+  function highlightCode() {
+    if (typeof Prism !== 'undefined' && Prism.highlightAll) {
+      // Find all code blocks
+      const codeBlocks = document.querySelectorAll('pre code, code[class*="language-"]');
+      
+      codeBlocks.forEach(function(block) {
+        // Add line-numbers class for plugin
+        if (block.parentElement && block.parentElement.tagName === 'PRE') {
+          block.parentElement.classList.add('line-numbers');
+        }
+        
+        // Detect language from class or add default
+        if (!block.className || block.className === '') {
+          block.className = 'language-markup';
+        }
+      });
+      
+      // Trigger Prism highlighting
+      Prism.highlightAll();
+    }
+  }
+  
+  // Run on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightCode);
+  } else {
+    highlightCode();
+  }
+  
+  // Re-highlight if content is dynamically loaded
+  window.addEventListener('load', highlightCode);
+  
+})();
+//]]>
+</script>
+
+
+<!-- STEP 3: Add custom styling to <b:skin> section -->
+
+<!-- Copy this CSS into your <b:skin> section for enhanced styling -->
+
+<style>
+/* Prism.js Code Block Styling */
+pre[class*="language-"] {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  background: #1e1e1e !important;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  box-shadow: var(--shadow-lg);
+}
+
+code[class*="language-"] {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  text-shadow: none;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: 0.2em 0.4em;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 4px;
+  color: var(--primary-color);
+  font-size: 0.85em;
+}
+
+/* Line numbers styling */
+.line-numbers .line-numbers-rows {
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.line-numbers-rows > span:before {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Toolbar styling */
+div.code-toolbar > .toolbar {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+div.code-toolbar:hover > .toolbar {
+  opacity: 1;
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > button,
+div.code-toolbar > .toolbar > .toolbar-item > span {
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--text-primary);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 0.3em 0.6em;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  transition: var(--transition);
+}
+
+div.code-toolbar > .toolbar > .toolbar-item > button:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Copy button success state */
+div.code-toolbar > .toolbar > .toolbar-item > button[data-copy-state="copy-success"] {
+  background: var(--success-color);
+  color: white;
+}
+
+/* Scrollbar for code blocks */
+pre[class*="language-"]::-webkit-scrollbar {
+  height: 8px;
+}
+
+pre[class*="language-"]::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+pre[class*="language-"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  pre[class*="language-"] {
+    padding: var(--spacing-md);
+    font-size: 0.75rem;
+  }
+  
+  code[class*="language-"] {
+    font-size: 0.75rem;
+  }
+}
+</style>
+
+
+<!-- ============================================= -->
+<!-- HOW TO USE IN YOUR BLOG POSTS -->
+<!-- ============================================= -->
+
+<!--
+USAGE EXAMPLES:
+
+1. BASIC CODE BLOCK:
+<pre><code class="language-javascript">
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+</code></pre>
+
+2. WITH SPECIFIC LANGUAGE:
+<pre><code class="language-python">
+def greet(name):
+    return f"Hello, {name}!"
+</code></pre>
+
+3. INLINE CODE:
+Use <code class="language-javascript">const x = 5;</code> for inline code.
+
+4. SUPPORTED LANGUAGES:
+- language-javascript
+- language-typescript
+- language-jsx
+- language-tsx
+- language-css
+- language-python
+- language-bash
+- language-json
+- language-sql
+- language-markup (HTML)
+- language-markdown
+
+FEATURES INCLUDED:
+✓ Line numbers
+✓ Copy to clipboard button
+✓ Syntax highlighting
+✓ Dark theme (Tomorrow Night)
+✓ Responsive design
+✓ Auto-initialization
+
+-->
